@@ -6,13 +6,16 @@ class LayerManager:
         self.layers = []
     
     def push_layer(self, layer : Layer) -> None:
-        if not isinstance(state, State):
+        if not isinstance(layer, Layer):
             raise TypeError("State must inherit from State")
 
         self.layers.append(layer)
 
-    def pop_layer(self) -> Layer:
-        return self.layers.pop()
+    def pop_layer(self, n : int = 1) -> Layer:
+        for i in range(0, n):
+            if len(self.layers) == 1 or i == n:
+                return self.layers.pop()
+            self.layers.pop()
 
     def top(self) -> Layer:
         if not self.layers:
@@ -20,8 +23,11 @@ class LayerManager:
 
         return self.layers[-1]
 
-    def update(self) -> None:
-        self.top().update()
+    def __len__(self):
+        return len(self.layers)
+
+    def update(self, dt) -> None:
+        self.top().update(dt)
 
     def render(self) -> None:
         self.top().render()

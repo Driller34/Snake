@@ -3,7 +3,7 @@ import pygame
 
 class Layer:
     @abstractclassmethod
-    def update(self):
+    def update(self, dt):
         pass
 
     @abstractclassmethod
