@@ -1,3 +1,4 @@
 src/__pycache__
 PySnake.egg-info
 .venv
+src/layers/__pycache__
