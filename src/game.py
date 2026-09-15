@@ -1,15 +1,15 @@
 import pygame
 from src.layers.layer_manager import LayerManager
-from src.snake_layer import SnakeLayer
+from src.snake.snake_layer import SnakeLayer
 
 class Game:
-    def __init__(self, width : int, height : int, fps : int = 60) -> None:
-        self.screen = pygame.display.set_mode((width, height))
+    def __init__(self, config : dict) -> None:
+        self.screen = pygame.display.set_mode((config['window']['width'], config['window']['height']))
         self.clock = pygame.time.Clock()
-        self.fps = fps
+        self.fps = config['window']['fps']
         self.running = True
         self.layer_manager = LayerManager()
-        self.layer_manager.push_layer(SnakeLayer(self.layer_manager))
+        self.layer_manager.push_layer(SnakeLayer(self.layer_manager, config['game']))
 
     def run(self) -> None:
         dt = 0

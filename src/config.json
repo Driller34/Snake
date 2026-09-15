@@ -1,0 +1,17 @@
+{
+    "window" : {
+        "width" : 800,
+        "height" : 600,
+        "fps" : 60
+    },
+    "game" : {
+        "width" : 10,
+        "height" : 10,
+        "cell-width" : 50,
+        "cell-height" : 50,
+        "gap" : 5,
+        "snake-color" : "black",
+        "apple-color" : "red",
+        "empty-color" : "green"
+    }
+}
