@@ -9,7 +9,7 @@ class Game:
         self.fps = fps
         self.running = True
         self.layer_manager = LayerManager()
-        self.layer_manager.push_layer(SnakeLayer())
+        self.layer_manager.push_layer(SnakeLayer(self.layer_manager))
 
     def run(self) -> None:
         dt = 0
@@ -26,7 +26,7 @@ class Game:
 
         pygame.quit()
 
-    def update(self, dt) -> None:
+    def update(self, dt : float) -> None:
         self.layer_manager.update(dt)
 
     def eventHandler(self) -> None:
@@ -37,4 +37,4 @@ class Game:
                 self.layer_manager.process_event(event)
 
     def render(self) -> None:
-        self.layer_manager.render()
+        self.layer_manager.render(self.screen)

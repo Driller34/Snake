@@ -11,11 +11,16 @@ class LayerManager:
 
         self.layers.append(layer)
 
-    def pop_layer(self, n : int = 1) -> Layer:
-        for i in range(0, n):
-            if len(self.layers) == 1 or i == n:
-                return self.layers.pop()
-            self.layers.pop()
+    def pop_layer(self, n: int = 1) -> Layer:
+        if not self.layers:
+            raise RuntimeError("Layers stack is empty")
+
+        n = min(n, len(self.layers))
+
+        for _ in range(n):
+            layer = self.layers.pop()
+
+        return layer
 
     def top(self) -> Layer:
         if not self.layers:
@@ -26,11 +31,11 @@ class LayerManager:
     def __len__(self):
         return len(self.layers)
 
-    def update(self, dt) -> None:
+    def update(self, dt : float) -> None:
         self.top().update(dt)
 
-    def render(self) -> None:
-        self.top().render()
+    def render(self, screen : pygame.Surface) -> None:
+        self.top().render(screen)
 
     def process_event(self, event : pygame.event.Event) -> None:
         self.top().process_event(event)
