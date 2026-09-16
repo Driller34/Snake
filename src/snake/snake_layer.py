@@ -22,8 +22,7 @@ class SnakeLayer(Layer):
 
     def update(self, dt : float):
         if self.snake.game_over:
-            print("over")
-            #return
+            return
 
         self.snake.update(dt)
 

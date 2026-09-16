@@ -37,7 +37,7 @@ class SnakeCore:
         self.map[y][x] = Cell.APPLE
 
     def game_over(self) -> bool:
-        return game_over
+        return self.game_over
 
     def update(self, dt : float) -> None:
         self.move_timer += dt
@@ -53,7 +53,7 @@ class SnakeCore:
         new_y = y + vy
 
         if new_x < 0 or new_x >= self.width or new_y < 0 or new_y >= self.height:
-            game_over = True
+            self.game_over = True
             return
 
         self.snake_positions.insert(0, (new_x, new_y))
