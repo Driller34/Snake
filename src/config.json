@@ -10,6 +10,7 @@
         "cell-width" : 50,
         "cell-height" : 50,
         "gap" : 5,
+        "timeout" : 0.5,
         "snake-color" : "black",
         "apple-color" : "red",
         "empty-color" : "green"

@@ -25,10 +25,24 @@ class SnakeCore:
         self.game_over = False
 
         self.move_timer = 0.0
+        self.timeout = config["timeout"]
 
         self.map = [[Cell.EMPTY for i in range(0, self.width)] for i in range(0, self.height)]
 
         self.set_apple()
+
+    def _is_valid_position(self, position : tuple[int, int]) -> bool:
+        return (position[0] >= 0 
+            and position[0] < self.width 
+            and position[1] >= 0 
+            and position[1] < self.height 
+            and position not in self.snake_positions)
+
+    def _new_position(self) -> tuple:
+        x, y = self.snake_positions[0]
+        vx, vy = self.velocity
+
+        return (x + vx, y + vy)
 
     def set_apple(self) -> None:
         x = random.randint(0, self.width - 1)
@@ -42,26 +56,23 @@ class SnakeCore:
     def update(self, dt : float) -> None:
         self.move_timer += dt
 
-        if self.move_timer < 0.5:
+        if self.move_timer < self.timeout:
             return
 
-        self.move_timer -= 0.5
+        self.move_timer -= self.timeout
 
-        x, y = self.snake_positions[0]
-        vx, vy = self.velocity
-        new_x = x + vx
-        new_y = y + vy
+        x, y = self._new_position()
 
-        if new_x < 0 or new_x >= self.width or new_y < 0 or new_y >= self.height:
+        if not self._is_valid_position((x, y)):
             self.game_over = True
             return
 
-        self.snake_positions.insert(0, (new_x, new_y))
+        self.snake_positions.insert(0, (x, y))
 
-        if self.map[new_y][new_x] == Cell.EMPTY:
+        if self.map[y][x] == Cell.EMPTY:
             self.snake_positions.pop()
         else:
-            self.map[new_y][new_x] = Cell.EMPTY
+            self.map[y][x] = Cell.EMPTY
             self.set_apple()
 
     def render(self, screen : pygame.Surface) -> None:
