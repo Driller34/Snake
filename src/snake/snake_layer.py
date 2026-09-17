@@ -2,12 +2,14 @@ import pygame
 from src.layers.layer import Layer
 from src.layers.layer_manager import LayerManager
 from src.snake.snake_core import SnakeCore
+from src.menu.game_over_layer import GameOverLayer
 
 class SnakeLayer(Layer):
     def __init__(self, layer_manager : LayerManager, config : dict) -> None:
         self.layer_manager = layer_manager
+        self.config = config
         
-        self.snake = SnakeCore(config)
+        self.snake = SnakeCore(config['game'])
 
     def process_event(self, event : pygame.event.Event) -> None:
         if event.type == pygame.KEYDOWN:
@@ -22,7 +24,7 @@ class SnakeLayer(Layer):
 
     def update(self, dt : float):
         if self.snake.game_over:
-            return
+            self.layer_manager.push_layer(GameOverLayer(self.layer_manager, self.config))
 
         self.snake.update(dt)
 
