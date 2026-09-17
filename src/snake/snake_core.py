@@ -45,10 +45,21 @@ class SnakeCore:
         return (x + vx, y + vy)
 
     def set_apple(self) -> None:
-        x = random.randint(0, self.width - 1)
-        y = random.randint(0, self.height - 1)
+        n = self.width * self.height
 
-        self.map[y][x] = Cell.APPLE
+        r = random.randint(0, n - 1)
+
+        for i in range(n):
+            x = r % self.height
+            y = r // self.height 
+
+            if (x, y) not in self.snake_positions:
+                self.map[y][x] = Cell.APPLE
+                return
+
+            r = (r + 1) % n
+
+        game_over = True
 
     def game_over(self) -> bool:
         return self.game_over
