@@ -14,5 +14,10 @@
         "snake-color" : "black",
         "apple-color" : "red",
         "empty-color" : "green"
+    },
+    "font" : {
+        "big-font" : 70,
+        "mid-font" : 50,
+        "small-font" : 20
     }
 }
