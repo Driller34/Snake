@@ -29,7 +29,7 @@ class SnakeCore:
 
         self.map = [[Cell.EMPTY for i in range(0, self.width)] for i in range(0, self.height)]
 
-        self.set_apple()
+        self._set_apple()
 
     def _is_valid_position(self, position : tuple[int, int]) -> bool:
         return (position[0] >= 0 
@@ -44,7 +44,7 @@ class SnakeCore:
 
         return (x + dx, y + dy)
 
-    def set_apple(self) -> None:
+    def _set_apple(self) -> None:
         n = self.width * self.height
 
         r = random.randint(0, n - 1)
@@ -61,18 +61,13 @@ class SnakeCore:
 
         self._game_over = True
 
-    @property
-    def is_game_over(self) -> bool:
-        return self._game_over
+    def _set_direction(self, direction : tuple[int, int]) -> None:
+        dx, dy = direction
 
-    def update(self, dt : float) -> None:
-        self.move_timer += dt
+        if self.direction != (-dx, -dy):
+            self.direction = (dx, dy)
 
-        if self.move_timer < self.timeout:
-            return
-
-        self.move_timer -= self.timeout
-
+    def _move_snake(self):
         x, y = self._new_position()
 
         if not self._is_valid_position((x, y)):
@@ -85,7 +80,21 @@ class SnakeCore:
             self.snake_positions.pop()
         else:
             self.map[y][x] = Cell.EMPTY
-            self.set_apple()
+            self._set_apple()
+
+    @property
+    def is_game_over(self) -> bool:
+        return self._game_over
+
+    def update(self, dt : float) -> None:
+        self.move_timer += dt
+
+        if self.move_timer < self.timeout:
+            return
+
+        self.move_timer -= self.timeout
+
+        self._move_snake()
 
     def render(self, screen : pygame.Surface) -> None:
         for i in range(0, self.height):
@@ -103,20 +112,14 @@ class SnakeCore:
                     self.cell_width, 
                     self.cell_height))
 
-    def set_direction(self, direction : tuple[int, int]) -> None:
-        dx, dy = direction
+    def set_drection_up(self) -> None:
+        self._set_direction((0, -1))
 
-        if self.direction != (-dx, -dy):
-            self.direction = (dx, dy)
+    def set_drection_down(self) -> None:
+        self._set_direction((0, 1))
 
-    def move_up(self) -> None:
-        self.set_direction((0, -1))
+    def set_drection_right(self) -> None:
+        self._set_direction((1, 0))
 
-    def move_down(self) -> None:
-        self.set_direction((0, 1))
-
-    def move_right(self) -> None:
-        self.set_direction((1, 0))
-
-    def move_left(self) -> None:
-        self.set_direction((-1, 0))
+    def set_drection_left(self) -> None:
+        self._set_direction((-1, 0))
