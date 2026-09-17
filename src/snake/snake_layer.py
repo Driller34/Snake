@@ -23,7 +23,7 @@ class SnakeLayer(Layer):
                 self.snake.move_right()
 
     def update(self, dt : float):
-        if self.snake.game_over:
+        if self.snake.is_game_over:
             self.layer_manager.push_layer(GameOverLayer(self.layer_manager, self.config))
 
         self.snake.update(dt)

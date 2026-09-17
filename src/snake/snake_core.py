@@ -20,9 +20,9 @@ class SnakeCore:
         self.apple_color = config["apple-color"]
 
         self.snake_positions = [(0, 0)]
-        self.velocity = (1, 0)
+        self.direction = (1, 0)
 
-        self.game_over = False
+        self._game_over = False
 
         self.move_timer = 0.0
         self.timeout = config["timeout"]
@@ -36,13 +36,13 @@ class SnakeCore:
             and position[0] < self.width 
             and position[1] >= 0 
             and position[1] < self.height 
-            and position not in self.snake_positions)
+            and position not in self.snake_positions[0:-2])
 
     def _new_position(self) -> tuple:
         x, y = self.snake_positions[0]
-        vx, vy = self.velocity
+        dx, dy = self.direction
 
-        return (x + vx, y + vy)
+        return (x + dx, y + dy)
 
     def set_apple(self) -> None:
         n = self.width * self.height
@@ -50,8 +50,8 @@ class SnakeCore:
         r = random.randint(0, n - 1)
 
         for i in range(n):
-            x = r % self.height
-            y = r // self.height 
+            x = r % self.width
+            y = r // self.width
 
             if (x, y) not in self.snake_positions:
                 self.map[y][x] = Cell.APPLE
@@ -59,10 +59,11 @@ class SnakeCore:
 
             r = (r + 1) % n
 
-        game_over = True
+        self._game_over = True
 
-    def game_over(self) -> bool:
-        return self.game_over
+    @property
+    def is_game_over(self) -> bool:
+        return self._game_over
 
     def update(self, dt : float) -> None:
         self.move_timer += dt
@@ -75,7 +76,7 @@ class SnakeCore:
         x, y = self._new_position()
 
         if not self._is_valid_position((x, y)):
-            self.game_over = True
+            self._game_over = True
             return
 
         self.snake_positions.insert(0, (x, y))
@@ -102,14 +103,20 @@ class SnakeCore:
                     self.cell_width, 
                     self.cell_height))
 
+    def set_direction(self, direction : tuple[int, int]) -> None:
+        dx, dy = direction
+
+        if self.direction != (-dx, -dy):
+            self.direction = (dx, dy)
+
     def move_up(self) -> None:
-        self.velocity = (0, -1)
+        self.set_direction((0, -1))
 
     def move_down(self) -> None:
-        self.velocity = (0, 1)
+        self.set_direction((0, 1))
 
     def move_right(self) -> None:
-        self.velocity = (1, 0)
+        self.set_direction((1, 0))
 
     def move_left(self) -> None:
-        self.velocity = (-1, 0)
+        self.set_direction((-1, 0))
