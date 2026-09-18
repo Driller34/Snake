@@ -112,14 +112,14 @@ class SnakeCore:
                     self.cell_width, 
                     self.cell_height))
 
-    def set_drection_up(self) -> None:
+    def set_direction_up(self) -> None:
         self._set_direction((0, -1))
 
-    def set_drection_down(self) -> None:
+    def set_direction_down(self) -> None:
         self._set_direction((0, 1))
 
-    def set_drection_right(self) -> None:
+    def set_direction_right(self) -> None:
         self._set_direction((1, 0))
 
-    def set_drection_left(self) -> None:
+    def set_direction_left(self) -> None:
         self._set_direction((-1, 0))

@@ -14,13 +14,13 @@ class SnakeLayer(Layer):
     def process_event(self, event : pygame.event.Event) -> None:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_w:
-                self.snake.set_drection_up()
+                self.snake.set_direction_up()
             elif event.key == pygame.K_s:
-                self.snake.set_drection_down()
+                self.snake.set_direction_down()
             elif event.key == pygame.K_a:
-                self.snake.set_drection_left()
+                self.snake.set_direction_left()
             elif event.key == pygame.K_d:
-                self.snake.set_drection_right()
+                self.snake.set_direction_right()
 
     def update(self, dt : float):
         if self.snake.is_game_over:
