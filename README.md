@@ -1,5 +1,5 @@
 # Snake
-Simple snake game buld with python and pygame
+Simple snake game buld with Python and Pygame
 
 ## Table of Contents
 - [Gameplay](#gameplay)
@@ -18,9 +18,9 @@ Simple snake game buld with python and pygame
 - Keyboard controls with WASD
 - Random apple spawning outside the snake body
 - Collision detection with walls and self
-- Menu screen with stat and exit actions
+- Menu screen with start and exit actions
 - Game over screen with return to menu and exit options
-- Game configuraton stored in JSON
+- Game configuration stored in JSON
 - Layer-based architecture for game states and UI
 
 ## Technologies Used
@@ -28,7 +28,7 @@ Simple snake game buld with python and pygame
 - setuptools
 
 ## Tested Platforms
-- Linux (arch)
+- Linux (Arch Linux)
 
 ## Getting Started
 1. **Clone the repository:**
