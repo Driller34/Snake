@@ -1,15 +1,15 @@
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
 import pygame
 
 class Layer:
-    @abstractclassmethod
+    @abstractmethod
     def update(self, dt : float) -> None:
         pass
 
-    @abstractclassmethod
+    @abstractmethod
     def render(self, screen : pygame.Surface) -> None:
         pass
 
-    @abstractclassmethod
+    @abstractmethod
     def process_event(self, event : pygame.event.Event) -> None:
         pass
