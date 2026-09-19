@@ -38,6 +38,8 @@ Simple snake game buld with Python and Pygame
    ```
 2. **Install:**
    ```bash
+   python -m venv .venv
+   source .venv/bin/activate
    python -m pip install --upgrade pip
    python -m pip install -e .
    ```
