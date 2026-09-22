@@ -28,6 +28,9 @@ class LayerManager:
 
         return self.layers[-1]
 
+    def clear(self) -> None:
+        self.layers = []
+
     def __len__(self):
         return len(self.layers)
 

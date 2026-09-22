@@ -8,6 +8,7 @@ Simple snake game buld with Python and Pygame
 - [Tested Platforms](#tested-platforms)
 - [Getting Started](#getting-started)
 - [Controls](#controls)
+- [Tests](#tests)
 - [Licence](#licence)
 
 ## Gameplay
@@ -49,11 +50,21 @@ Simple snake game buld with Python and Pygame
    pysnake
    ```
 
+
 ## Controls
 - **W** → move up
 - **S** → move down
 - **A** → move left
 - **D** → move right
+
+## Tests
+The project uses Python's built-in `unittest` framework, with test discovery.
+
+Run the full test suite from the **project root directory**:
+```bash
+python -m unittest discover -s test
+```
+> **Note:** All test commands must be run from the project root — test imports (e.g. `from src.layers.layer_manager import LayerManager`) are resolved relative to this directory.
 
 ## Licence
 MIT
